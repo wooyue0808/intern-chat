@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>实习生工作问答助手</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='6' y='10' width='52' height='40' rx='10' fill='%232563eb'/%3E%3Cpath d='M18 24h28M18 34h18' stroke='%23ffffff' stroke-width='4' stroke-linecap='round'/%3E%3Cpath d='M22 46l-6 8' stroke='%232563eb' stroke-width='4' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --ink: #1f2937;
+    --muted: #6b7280;
+    --accent: #2563eb;
+    --bg: #f6f7f9;
+    --card: #ffffff;
+    --line: #e5e7eb;
+    --warn-bg: #fff8e6;
+    --warn-line: #e6c35c;
+    --warn-ink: #7a5a10;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", system-ui, -apple-system, sans-serif;
+    line-height: 1.7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 20px;
+  }
+  .card {
+    width: 100%;
+    max-width: 560px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 36px 36px 30px;
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+  }
+  .card h1 {
+    margin: 0 0 10px;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+  .lead {
+    margin: 0 0 22px;
+    color: var(--muted);
+    font-size: 15px;
+  }
+  .topics {
+    margin: 0 0 22px;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+  .topics li {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+  .topics li b { color: var(--accent); }
+  .notice {
+    margin: 0 0 6px;
+    background: var(--warn-bg);
+    border: 1px solid var(--warn-line);
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: var(--warn-ink);
+    font-size: 14px;
+  }
+  .notice p { margin: 0 0 4px; }
+  .notice p:last-child { margin-bottom: 0; }
+  .hint {
+    margin: 18px 0 0;
+    color: var(--muted);
+    font-size: 14px;
+    text-align: center;
+  }
+  @media (max-width: 480px) {
+    body { padding: 20px 14px; }
+    .card { padding: 26px 20px 22px; }
+    .card h1 { font-size: 22px; }
+    .topics { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!--
+  ================================================================
+  使用前必填（两处）：请用记事本或任意编辑器打开本文件，
+  把下面的【】占位内容替换成你自己的参数，保存后刷新浏览器即可。
+
+  1. bot_id（智能体 ID）：
+    打开扣子里你的智能体"编排页面"，看浏览器地址栏，
+    bot/ 后面的那串数字就是 ID。
+    例如 URL 是 https://www.coze.cn/space/xxxx/bot/73428668****，
+    则 bot_id = '73428668****'
+
+  2. token（个人访问令牌 PAT）：
+    扣子平台 → 左下角头像 → 个人访问令牌（API 授权）→ 新建令牌，
+    勾选权限：Bot管理(chat/getMetadata)、会话管理、对话、消息 等，
+    生成后复制形如 pat_xxxx 的令牌。
+   ================================================================
+-->
+
+<div class="card">
+  <h1>实习生工作问答助手</h1>
+  <p class="lead">面向新瑜姐带教实习生的专属问答助手，覆盖实习期间高频工作问题。点击右下角气泡即可开始对话。</p>
+  <ul class="topics">
+    <li><b>新人 landing</b> 期要做什么</li>
+    <li><b>MDT 项目</b>怎么做</li>
+    <li><b>周报、会议</b>确认流程</li>
+    <li><b>部门架构</b>与分工</li>
+  </ul>
+  <div class="notice">
+    <p>本助手仅供新瑜姐的实习生使用，请勿分享给其他人。涉及金额、预算、合同、劳务费等公司敏感信息，助手不会回答。</p>
+    <p>回答由 AI 生成，仅供参考；关键信息请以原始文件或带教人确认为准。</p>
+  </div>
+  <p class="hint">页面右下角悬浮球为对话入口，支持手机与电脑访问。</p>
+</div>
+
+<!-- 扣子 Chat SDK 安装代码（官方：https://docs.coze.cn/developer_guides_install_web_sdk） -->
+<script src="https://lf-cdn.coze.cn/obj/unpkg/flow-platform/chat-app-sdk/1.2.0-beta.20/libs/cn/index.js"></script>
+<script>
+  var cozeWebSDK = new CozeWebSDK.WebChatClient({
+    config: {
+      bot_id: '7695380097444036644',
+      isIframe: false
+    },
+    auth: {
+      type: 'token',
+      token: 'pat_cgfNLTqoT3EKCquhcXn7EZGskWMfJmpqExbWM2HvlyzGuDBr9mVa7TwYn2qJ1xlm',
+      onRefreshToken: function () {
+        return 'pat_cgfNLTqoT3EKCquhcXn7EZGskWMfJmpqExbWM2HvlyzGuDBr9mVa7TwYn2qJ1xlm';
+      }
+    },
+    ui: {
+      base: {
+        lang: 'zh-CN',
+        layout: 'pc'
+      },
+      footer: {
+        isShow: true,
+        expressionText: '仅供新瑜姐的实习生使用，禁止外传。AI 生成内容仅供参考。'
+      }
+    }
+  });
+</script>
+</body>
+</html>
